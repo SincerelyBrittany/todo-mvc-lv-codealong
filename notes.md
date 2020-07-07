@@ -1,5 +1,12 @@
 Step 1: Integrate Basic Theme to Asset Pipeline
 
+- Stubb out, non-dynamic, page with theme/ get rid of rails default page
+    * Go to routes and create a site controller with a welcome action
+    * Add the following: root 'site#welcome'
+    * Visit localhost:3000 - will get error "uninitialized constant SiteController"
+    * generate Site Controller 
+
+
 Step 2: allow people to crud lists'
 create 
 see 
