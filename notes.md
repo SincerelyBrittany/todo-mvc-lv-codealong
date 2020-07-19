@@ -152,5 +152,9 @@ rails g controller items create
       invoke    scss
       create      app/assets/stylesheets/items.scss
     
+Step 4 :
+
+adding validations -- validate that items have a name and items have a description.
+
 
 Step whatever

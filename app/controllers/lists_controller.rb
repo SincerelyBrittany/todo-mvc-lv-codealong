@@ -20,7 +20,13 @@ class ListsController < ApplicationController
         # redirect_to list_path(@list)
 
         @list = List.create(list_params)
-        redirect_to list_path(@list)
+        if @list.save
+            redirect_to list_path(@list)
+        else 
+            @lists = List.all
+            #render does not make another request
+            render :index
+        end
     end
 
     private 

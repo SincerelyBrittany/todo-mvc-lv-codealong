@@ -1,8 +1,13 @@
 <section class="todoapp">
 			<header class="header">
 				<h1> Your List</h1>
-				<%= form_for(List.new) do |f| %>
+                <%# raise @list.errors.inspect %>
+				<%= form_for(@list) do |f| %>
+                    <% if @list.errors[:name].present? %>
+                    <%= f.text_field :name, :class => "new-todo", :placeholder => "@list.errors[:name]" %>
+                      <% else %>
                     <%= f.text_field :name, :class => "new-todo" %>
+                  <% end %>
                     <%#input class="new-todo" type="text" name="list[name]" id="list_name"%>
                     <%= f.submit :style => "display:none"%>
                 <% end %>
