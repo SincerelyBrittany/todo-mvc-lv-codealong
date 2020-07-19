@@ -18,13 +18,29 @@
                     <input class="toggle-all" type="checkbox">
                     <label for="toggle-all"> Mark ask complete </label>
                 <ul class="todo-list">
-                <% @list.items.each do |item| %>
-                    <li>
-                    <div class="view">
-                        <label> <%= item.description %> </label>
+                    <% @list.items.each do |item| %>
+                    <li class="<%= "completed" if item.complete? %>">
+                        <div class="view">
+                            <%# raise list_item_path(@list, item).inspect %>
+                            <%# raise list.inspect if item.id.nil?%>
+                            <%# form_for([@list, item], :url => list_item_path(@list, item), :method => :put) do |f| %>
+                            <%# f.check_box :status, :class => "toggle", :checked => (true if item.complete?) %>
+                            <%# f.submit %>
+
+                        <%# form_for([@list, item], :url => list_item_path(@list, item), :method => :put) do |f| %>   
+                        <%# f.submit%>
+                        <%# end %>
+
+                         <%= form_for([@list, item]) do |f| %>
+                            <%= f.check_box :status, :class => "completed", :checked => (true if item.complete?) %>
+                            <%= f.submit%>
+                            <% end %>
+
+             
+                            <label><%= item.description %></label>
                         </div>
                     </li>
                     <%end %>
+                </ul>
 			</section>
-		
 		</section>

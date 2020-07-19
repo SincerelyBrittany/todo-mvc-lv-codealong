@@ -156,5 +156,72 @@ Step 4 :
 
 adding validations -- validate that items have a name and items have a description.
 
+Step 5:
+Add a state of complete/incomplete
+
+What urls do I need and how might my db change?
+- the idea of an item being complete or imcomplete require data. 
+-new forms for updating the status of the item - which means new url 
+/lists/1/itens 
+
+PUT/PATCH lists/1/items/1
+PUT/PATCH lists/:list_id/items/:id
+
+I know I need to steal the checkbox HTML from todomvc.com 
+
+add this to the view 
+<input class="toggle" type="checkbox">
+
+I need that Js function to submit the form when you click the checkbox (4.29)
+
+$(function(){
+    $("input.toggle").on("change", function(){
+        $(this).parents("form").trigger("submit")
+    })
+});
+
+
+
+<%# f.check_box :status, :class => "toggle", :checked => (true if item.complete?) %>
+
+rake routes | grep items
+
+Step 6 : Deleteing items from a list
+- marking items as complete/incomplete
+
+
+Update the schema:
+rails generate migration AddStatusToItems status:integer
+
+rake db:rollback
+
+class AddStatusToItems < ActiveRecord::Migration[6.0]
+  def change
+    add_column :items, :status, :integer, :default => 0
+  end
+end
+
+Create status methods inside of items model. 
+    rails console
+    l = List.first
+    m = l.items.first
+    m.complete?
+         => false 
+    m.incomplete?
+        => true 
+    m.status = 1
+        => 1 
+    m.save
+    m.complete?
+        => true 
+
+<li class="<%= "completed" if item.complete? %>">
+                        <div class="view">
+                            <input class="toggle" type="checkbox" <%= "checked='checked'" if item.complete? %>>
+
+
+Now you want to update the db based off the checkmark
+
+
 
 Step whatever
