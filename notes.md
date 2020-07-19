@@ -222,6 +222,6 @@ Create status methods inside of items model.
 
 Now you want to update the db based off the checkmark
 
-
+REFACTOR 1: Start using a partial 
 
 Step whatever

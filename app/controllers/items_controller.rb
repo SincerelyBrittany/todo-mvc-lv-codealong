@@ -16,8 +16,9 @@ class ItemsController < ApplicationController
     #What item am i trying to update?
 
     @item = Item.find(params[:id])
-    @item.status = params[:item][:status]
-    @item.save
+    @item.update(item_params)
+    # @item.status = params[:item][:status]
+    # @item.save
 
     redirect_to list_path(@item.list)
     # @list = List.find(params[:id])
@@ -29,6 +30,6 @@ class ItemsController < ApplicationController
 
   private 
   def item_params
-    params.require(:item).permit(:description)
+    params.require(:item).permit(:description, :status)
   end
 end
