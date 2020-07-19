@@ -131,12 +131,12 @@ label[for='toggle-all'] {
 	border: none; /* Mobile Safari */
 }
 
-.toggle-all:before {
+/* .toggle-all:before {
 	content: '❯';
 	font-size: 22px;
 	color: #e6e6e6;
 	padding: 10px 27px 10px 27px;
-}
+} */
 
 .toggle-all:checked:before {
 	color: #737373;
