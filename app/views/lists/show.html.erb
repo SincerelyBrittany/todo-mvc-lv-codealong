@@ -18,9 +18,11 @@
                     <input class="toggle-all" type="checkbox">
                     <label for="toggle-all"> Mark ask complete </label>
                 <ul class="todo-list">
-                    <% @list.items.each do |the_list_item| %>
-                    <%= render :partial => "items/item_li", :locals => {:item => the_list_item} %>
-                    <%end %>
+                <%= render :collection => @list.items, :partial => "items/item_li", :as => :item %>
+                    <%# @list.items.each do |the_list_item| %>
+                    <%#render "items/item_li", :item => the_list_item %>
+                    <%# render :partial => "items/item_li", :locals => {:item => the_list_item} %>
+                    <%#end %>
                 </ul>
 			</section>
 		</section>
