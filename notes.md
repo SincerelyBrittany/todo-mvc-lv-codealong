@@ -119,8 +119,38 @@ Check your db with rails c
     - Item.create(description: "cookies", list_id: 1)
 
     - list.items -- has_many allows this
-  
+    - list.items.create(:description => "new shoes")
 
+    Make the items a real form for adding items
+  
+THe form is already present in the list show page.
+What url does this imply?
+
+Should be a post request
+POST /items => Doesnt desctibe which list we are adding an item too
+
+AN item doesnt exist in the application outside of the context of the list it belongs too
+
+Nested resource
+
+Post /lists/:id/items -> states that items are nested within this list - items are nrested int erms of urls under their parent list
+
+Create a nested resource route in config/routes
+
+rails g controller items create
+ create  app/controllers/items_controller.rb
+       route  get 'items/create'
+      invoke  erb
+      create    app/views/items
+      create    app/views/items/create.html.erb
+      invoke  test_unit
+      create    test/controllers/items_controller_test.rb
+      invoke  helper
+      create    app/helpers/items_helper.rb
+      invoke    test_unit
+      invoke  assets
+      invoke    scss
+      create      app/assets/stylesheets/items.scss
     
 
 Step whatever

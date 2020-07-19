@@ -4,7 +4,14 @@
 <section class="todoapp">
 			<header class="header">
 				<h1><%= @list.name %> </h1>
-				<input class="new-todo" placeholder="Add an item" autofocus="">
+                <%= form_for([@list, @item]) do |f| %>
+				<%# form_for(@item, :url => list_items_path(@list)) do |f| %>
+                <form action="/lists" method="POST">
+                <%# raise form_for(Item.new, :url => list_items_path(@list)) do |f| %>
+                    <%= f.text_field :description, :class => "new-todo" %>
+                    <%= f.submit :style => "display:none"%>
+                <% end %>
+                </form>
 			</header>
 			<section class="main">
                     <input class="toggle-all" type="checkbox">
