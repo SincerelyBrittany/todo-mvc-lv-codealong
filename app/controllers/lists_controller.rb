@@ -11,7 +11,20 @@ class ListsController < ApplicationController
     end 
 
     def create
-        raise params.inspect
+        # raise params.inspect
+        # @list = List.new
+        # @list.name = params[:list][:name]
+        # @list.save
+
+        # redirect_to list_path(@list)
+
+        @list = List.create(list_params)
+        redirect_to list_path(@list)
+    end
+
+    private 
+    def list_params
+        params.require(:list).permit(:name)
     end
 
 end
