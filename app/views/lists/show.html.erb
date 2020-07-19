@@ -5,10 +5,11 @@
 			<header class="header">
 				<h1><%= @list.name %> </h1>
                 <%= form_for([@list, @item]) do |f| %>
+                 <%= f.text_field :description, :class => "new-todo", :placeholder => (@item.errors.full_messages_for(:description).first || "Enter a new name") %> 
 				<%# form_for(@item, :url => list_items_path(@list)) do |f| %>
-                <form action="/lists" method="POST">
+                <%#form action="/lists" method="POST">
                 <%# raise form_for(Item.new, :url => list_items_path(@list)) do |f| %>
-                    <%= f.text_field :description, :class => "new-todo" %>
+                    <%# f.text_field :description, :class => "new-todo" %>
                     <%= f.submit :style => "display:none"%>
                 <% end %>
                 </form>
