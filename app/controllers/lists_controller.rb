@@ -5,6 +5,7 @@ class ListsController < ApplicationController
     end 
 
     def show
-        @list = List.find_by(params[:id])
+        @list = List.find(params[:id])
+        #params is going to have all the data passed by the user - params is a hash
     end 
 end
