@@ -4,7 +4,7 @@
                 <%# raise @list.errors.inspect %>
 				<%= form_for(@list) do |f| %>
                     <% if @list.errors[:name].present? %>
-                    <%= f.text_field :name, :class => "new-todo", :placeholder => (@list.errors.full_messages_for(:name).first) %>
+                    <%= f.text_field :name, :class => "new-todo", :placeholder => (@list.errors.full_messages_for(:name).first || "Enter a new name") %>
                       <% else %>
                     <%= f.text_field :name, :class => "new-todo" %>
                   <% end %>
