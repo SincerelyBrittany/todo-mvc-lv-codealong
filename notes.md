@@ -78,3 +78,49 @@ items
 
      Step 3 : Add an item to a list
 
+     -   Make the items in a list real
+      - a list has many items and every item belongs to a list.
+      
+      lists 
+
+      items 
+      id description list_id
+
+      list_id is the foreign key which will equal to the lists id 
+
+      since I dont know what I need - create the model generator.
+
+      rails g model item description
+
+        generates the following:
+         invoke  active_record
+      create    db/migrate/20200719021641_create_items.rb
+      create    app/models/item.rb
+      invoke    test_unit
+      create      test/models/item_test.rb
+      create      test/fixtures/items.yml
+
+Then rails db:migrate and then set up your associations in the models.( belongs_to has_many relationship)
+
+     -   CREATE AN ACTION for and ITEM in a list - WHat is the URL/ HTTP methos for that?
+
+    Does it impact the db? - I probably need a items table - associated with a list.
+    Does it impact my urls ?
+
+Check your db with rails c
+    - list.create(:description => "cookies")
+    - list 
+    - milk = Item.create
+    - milk.description = "Milk"
+    - milk
+    - milk.list_id = list.id OR milk.list_id = list
+    - milk.save
+    - milk.list (belongs_to list create a method called list to )
+    - Item.create(description: "cookies", list_id: 1)
+
+    - list.items -- has_many allows this
+  
+
+    
+
+Step whatever

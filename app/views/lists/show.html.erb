@@ -10,11 +10,13 @@
                     <input class="toggle-all" type="checkbox">
                     <label for="toggle-all"> Mark ask complete </label>
                 <ul class="todo-list">
+                <% @list.items.each do |item| %>
                     <li>
                     <div class="view">
-                        <label> Milk </label>
+                        <label> <%= item.description %> </label>
                         </div>
                     </li>
+                    <%end %>
 			</section>
 		
 		</section>
