@@ -76,3 +76,5 @@ items
      
      Controller index == @lists = List.all
 
+     Step 3 : Add an item to a list
+
