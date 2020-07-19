@@ -1,0 +1,21 @@
+ <li class="<%= "completed" if item.complete? %>">
+                        <div class="view">
+          <%# raise list_item_path(@list, item).inspect %>
+                            <%# raise list.inspect if item.id.nil?%>
+                            <%# form_for([@list, item], :url => list_item_path(@list, item), :method => :put) do |f| %>
+                            <%# f.check_box :status, :class => "toggle", :checked => (true if item.complete?) %>
+                            <%# f.submit %>
+
+                        <%# form_for([@list, item], :url => list_item_path(@list, item), :method => :put) do |f| %>   
+                        <%# f.submit%>
+                        <%# end %>
+
+                         <%= form_for([@list, item]) do |f| %>
+                            <%= f.check_box :status, :class => "completed", :checked => (true if item.complete?) %>
+                            <%= f.submit%>
+                            <% end %>
+
+             
+                            <label><%= item.description %></label>
+                        </div>
+                    </li>
