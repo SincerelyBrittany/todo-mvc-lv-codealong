@@ -28,6 +28,13 @@ class ItemsController < ApplicationController
 
   end 
 
+  def destroy
+    # raise params.inspect
+    @item = Item.find(params[:id])
+    @item.destroy
+    redirect_to list_path(@item.list)
+  end 
+
   private 
   def item_params
     params.require(:item).permit(:description, :status)

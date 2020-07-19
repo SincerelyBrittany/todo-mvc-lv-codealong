@@ -224,4 +224,15 @@ Now you want to update the db based off the checkmark
 
 REFACTOR 1: Start using a partial 
 
-Step whatever
+Delete an item from a list
+
+I know i need a new delete button or link for the delete
+that needs to hit come sort of URL - we can look that up
+RESTful conventions
+    How do we trigger a delete request - browsers only support get and post requst 
+
+a controller action to process the delteing of the item
+
+Next steps:
+
+create users and follow these directions on new branch
