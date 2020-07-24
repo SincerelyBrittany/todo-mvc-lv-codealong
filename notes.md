@@ -236,3 +236,199 @@ a controller action to process the delteing of the item
 Next steps:
 
 create users and follow these directions on new branch
+
+rails g resource User name username password_digest 
+
+rails generate migration AddUserToLists user_id:integer
+
+SET UP MODELS & uncomment out bycrypt in gemfile 
+
+m = User.new(name: "Sincerely", username: "brittany", password: "password")
+m.save
+true 
+
+n = User.new(name: "steve", username: "brittany", password: "password")
+n.save 
+false (because of validations)
+n.errors 
+=> username already taken
+n.username = "steve"
+n.save
+
+List.all
+
+if you already have list 
+a = List.first
+a.user_id = n.id
+a.save
+
+b = List.find(2).user_id = m.id
+b.save
+c = List.find(3).user_id = m.id
+c.save
+d = List.find(4).user_id = n.id
+d.save
+
+
+
+
+If you have no list create a list and add a user 
+P = List.create(name: "this is a list")
+
+
+Create sign up: Always thing Route - M - V - C
+
+Create new route: 
+get "/signup" => "users#new", as: "signup"
+
+So now your routes look like this:
+
+  resources :users, except: [:new]
+  get 'items/create'
+  resources :lists do 
+    resources :items
+  end 
+  get "/signup" => "users#new", as: "signup"
+  root 'lists#index'
+
+Create new user instance in controller
+
+class UsersController < ApplicationController
+    def new
+        @user = User.new
+    end 
+end
+
+Set up your signup view page:
+
+<%= form_with model: @user, local: true do |f| %>
+<%= f.text_field :name, placeholder: "name" %>
+<%= f.text_field :name, placeholder: "username" %>
+<%= f.password_field :name, placeholder: "password" %>
+<%= f.submit %>
+<% end %>
+
+Now update your create method in user
+
+   def create
+        @user = User.new(user_params)
+        if @user.save 
+            session[:user_id] = @user.id #logs in the user -- tells app that user is logged in
+            redirect_to lists_path
+        else 
+            render :new
+        end 
+    end
+
+    Next in application view 
+
+      <header>
+  <%= navbar %>
+  </header>
+
+  create a helper 
+
+   def navbar
+        if logged_in?
+            render "layouts/logged_in_navbar"
+        else
+            render "layouts/logged_out_navbar"
+        end 
+    end 
+
+    update application controller:
+
+      helper_method :logged_in?
+      helper_method :current_user
+
+    private
+
+    def logged_in?
+        !!current_user
+    end 
+
+    def current_user
+        User.find_by(id: session[:user_id])
+    end 
+
+    Create the two layout partials 
+
+    loggedin partial 
+    <%= button_to 'Log Out', '/logout', method: :delete %>
+
+    logged out partial
+
+     <%= link_to 'Log In', login_path %>
+  <%= link_to 'Sign Up', signup_path %>
+
+  Update the routes 
+
+  Rails.application.routes.draw do
+  root 'lists#index'
+  resources :users, except: [:new]
+
+  get "/signup" => "users#new", as: "signup"
+  get "/login" => "sessions#new", as: "login"
+  post "/login" => "sessions#create"
+  delete "/logout" => "sessions#destroy"
+
+  get 'items/create'
+  resources :lists do 
+    resources :items
+  end 
+end
+
+
+Create a sessions controller 
+
+rails g controller sessions 
+
+sessions/new view:
+
+<%= form_tag("/login") do %>
+<%= text_field_tag :username,nil, placeholder: 'username'%>
+<%= password_field_tag :password, nil, placeholder: 'password' %>
+<%= submit_tag "Login"%>
+<% end %>
+
+
+    sessions controller 
+      def create 
+        @user = User.find_by(username: params[:username])
+        if @user && @user.authenticate(params[:password])
+            # session[:user_id]
+            log_in(@user)
+            flash[:sucess] = "Welcome, #{@user.username}"
+            redirect_to lists_path
+        else 
+            flash[:danger] = "Improper credentials given"
+            redirect_to login_path
+        end 
+    end
+
+    application_controller
+    def log_in(user)
+        session[:user_id] = user.id
+    end 
+
+    def authenticate
+        redirect_to login_path if !logged_in?
+    end 
+
+    application.html.erb
+
+    <header>
+  <% flash.each do |k,v| %>
+    <%= v %>
+    <% end %>
+  <%= navbar %>
+  </header>
+    <%= yield %>
+   
+</html>
+
+
+
+
+
+

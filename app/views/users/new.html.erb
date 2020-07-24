@@ -1,0 +1,12 @@
+<%= form_with model: @user, local: true do |f| %>
+<%= f.text_field :name, placeholder: "name" %>
+<%= f.text_field :username, placeholder: "username" %>
+<%= f.password_field :password, placeholder: "password" %>
+<%= f.submit %>
+<% end %>
+
+<% if @user.errors.any? %>
+    <% @user.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+    <% end %>
+<% end %>

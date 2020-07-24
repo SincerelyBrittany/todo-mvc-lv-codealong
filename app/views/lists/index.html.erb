@@ -1,6 +1,6 @@
 <section class="todoapp">
 			<header class="header">
-				<h1> Your List</h1>
+				<h1> <%# @list.user.name %> List</h1>
                 <%# raise @list.errors.inspect %>
 				<%= form_for(@list) do |f| %>
                     <% if @list.errors[:name].present? %>
