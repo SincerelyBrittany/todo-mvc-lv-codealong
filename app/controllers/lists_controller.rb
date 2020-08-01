@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-    before_action :authenticate
+    before_action :authenticate_user!
 
     def index
         @list = List.new
@@ -31,6 +31,13 @@ class ListsController < ApplicationController
         end
     end
 
+    def edit 
+        byebug
+    end 
+
+    def update 
+       byebug 
+    end 
     private 
     def list_params
         params.require(:list).permit(:name)
