@@ -429,6 +429,22 @@ sessions/new view:
 
 
 
+AUthenication and Authorization:
 
+How does this impact my db?
+
+a new model - user, email
+
+what urls do I need?
+
+get /signup
+    -form 
+post /signup
+    -create the user 
+
+get /login
+    -form 
+post /login 
+    -log the user in
 
 
