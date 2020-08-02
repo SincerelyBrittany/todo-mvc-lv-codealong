@@ -1,12 +1,17 @@
-<%= form_with model: @user, local: true do |f| %>
-<%= f.text_field :name, placeholder: "name" %>
-<%= f.text_field :username, placeholder: "username" %>
-<%= f.password_field :password, placeholder: "password" %>
-<%= f.submit %>
-<% end %>
+<section class="todoapp">
+			<header class="header">
+				<h1>Sign Up! </h1>
+                <%= form_with model: @user, local: true do |f| %>
+                    <%= f.text_field :name, placeholder: "name", :class => "new-todo" %>
+                    <%= f.text_field :username, placeholder: "username", :class => "new-todo" %>
+                    <%= f.password_field :password, placeholder: "password", :class => "new-todo" %>
+                    <%= f.submit %>
+                <% end %>
 
-<% if @user.errors.any? %>
-    <% @user.errors.full_messages.each do |msg| %>
-    <p><%= msg %></p>
-    <% end %>
-<% end %>
+                <% if @user.errors.any? %>
+                    <% @user.errors.full_messages.each do |msg| %>
+                    <p class="new-todo"><%= msg %></p>
+                    <% end %>
+                <% end %>
+			</header>
+		</section>

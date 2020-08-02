@@ -5,7 +5,9 @@ class SessionsController < ApplicationController
     end 
 
     def create 
+        #raise cookies.inspect
         @user = User.find_by(username: params[:username])
+        #cookies[:username] = @user.email
         if @user && @user.authenticate(params[:password])
             # session[:user_id]
             log_in(@user)
@@ -18,6 +20,7 @@ class SessionsController < ApplicationController
     end 
 
     def destroy 
+        # byebug
         session.clear 
         redirect_to login_path
     end 

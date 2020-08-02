@@ -437,14 +437,21 @@ a new model - user, email
 
 what urls do I need?
 
-get /signup
+get /signup -- user/new
     -form 
-post /signup
+post /signup -- /users
     -create the user 
 
 get /login
     -form 
 post /login 
     -log the user in
+
+
+Adding Github
+Get API key 
+Add omniauth to gemfile 
+
+update initialize folder 
 
 

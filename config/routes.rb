@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'lists#index'
   resources :users, except: [:new]
+  get '/auth/:provider/callback' => 'sessions#create'
 
   get "/signup" => "users#new", as: "signup"
   get "/login" => "sessions#new", as: "login"
