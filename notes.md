@@ -455,3 +455,71 @@ Add omniauth to gemfile
 update initialize folder 
 
 
+OAUTH2 Flow:
+
+1. The user goes to auth/github on my site
+2. OmniAuth redirects them to Github, provides Github with the key and secret identiying my app. This lets Github know which of the 10000s applcations that use Github for authentication the user is trying to log in
+3. the user logs in with github
+4. github redirects them back to my app (callback url) and provides my app with a secret code that represents the user on github
+5. My application sends that secret code back to github 
+6. github confirms that the code came from github and that your applcation recieved it 
+7. github responds to my application request with the code
+8. github sends meback the users data
+9. I check if the user is in my system, otherwise crete a user based on their username
+
+
+```
+class SessionsController < ApplicationController
+
+    def new 
+
+    end 
+
+    def create 
+        #raise cookies.inspect
+        # raise "stop".inspect
+            #request.env
+            #request.class
+            #request.env["omniauth.auth"]
+            #request.env["omniauth.auth"]["provider"]
+            #request.env["omniauth.auth"]["uid"]
+            #request.env["omniauth.auth"].keys
+            #request.env["omniauth.auth"]["credentials"].keys
+            #request.env["omniauth.auth"]["token"] - allows you to make request ot gihub on user behalf - create a repo on user behalf for example
+        if auth_hash = request.env["omniauth.auth"] 
+                #they loggedin omniauth
+                #raise auth_hash.inspect
+            oauth_username = request.env["omniauth.auth"]["info"]["nickname"]
+            if user = User.find_by(:username => oauth_username) #github
+                session[:user_id] = user.id
+                redirect_to lists_path
+            else 
+                #I know them but this is the first time they came to this website
+                # raise "NEW USER LOGGING IN VIA GITHUB".inspect
+                user = User.create(:name => oauth_username, :username => oauth_username,:password => SecureRandom.hex)
+                session[:user_id] = user.id
+                redirect_to lists_path
+            end 
+        else
+            #normal log in
+            @user = User.find_by(username: params[:username])
+            #cookies[:username] = @user.email
+            if @user && @user.authenticate(params[:password])
+                # session[:user_id]
+                log_in(@user)
+                flash[:sucess] = "Welcome, #{@user.username}"
+                redirect_to lists_path
+            else 
+                flash[:danger] = "Improper credentials given"
+                redirect_to login_path
+            end 
+        end
+    end 
+
+    def destroy 
+        # byebug
+        session.clear 
+        redirect_to login_path
+    end 
+end
+```
